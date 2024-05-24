@@ -18,27 +18,27 @@ Tic Tac Toe
 
 void printBoard(string board[3][3]) //O(N^2)
 {
+	cout << " | 0 1 2" << endl << "-|------" << endl;
+
 	for (int row = 0; row < 3; row++)
 	{
 		for (int column = 0; column < 3; column++)
 		{
-			if (column == 0)
+			if (column == 0) 
 			{
-				cout << board[row][column];
+				cout << row << "| " << board[row][column];
 			}
 			else if (column == 2)
 			{
-				cout << "|";
-				cout << board[row][column] << endl;
+				cout << "|" << board[row][column] << endl;
 				if (row != 2)
 				{
-					cout << "- - -" << endl;
+					cout << " | - - -" << endl;
 				}
 			}
 			else
 			{
-				cout << "|";
-				cout << board[row][column];
+				cout << "|" << board[row][column];
 			}
 		}
 
@@ -50,118 +50,126 @@ int winConditions(string board[3][3])
 	// ROWS
 	if (board[0][0] == board[0][1] && board[0][0] == board[0][2] && board[0][0] != " " && board[0][1] != " " && board[0][2] != " ")
 	{
-		return -1;
+		if (board[0][0] == "X") {return 1;} 
+		else {return -1;}
 	}
 	if (board[1][0] == board[1][1] && board[1][0] == board[1][2] && board[1][0] != " " && board[1][1] != " " && board[1][2] != " ")
 	{
-		return -1;
+		if (board[1][0] == "X") { return 1; }
+		else { return -1; }
 	}
 	if (board[2][0] == board[2][1] && board[2][0] == board[2][2] && board[2][0] != " " && board[2][1] != " " && board[2][2] != " ")
 	{
-		return -1;
+		if (board[2][0] == "X") { return 1; }
+		else { return -1; }
 	}
 
 	// COLUMNS
 	if (board[0][0] == board[1][0] && board[0][0] == board[2][0] && board[0][0] != " " && board[1][0] != " " && board[2][0] != " ")
 	{
-		return -1;
+		if (board[0][0] == "X") { return 1; }
+		else { return -1; }
 	}
 	if (board[0][1] == board[1][1] && board[0][1] == board[2][1] && board[0][1] != " " && board[1][1] != " " && board[2][1] != " ")
 	{
-		return -1;
+		if (board[0][1] == "X") { return 1; }
+		else { return -1; }
 	}
 	if (board[0][2] == board[1][2] && board[0][2] == board[2][2] && board[0][2] != " " && board[1][2] != " " && board[2][2] != " ")
 	{
-		return -1;
+		if (board[0][2] == "X") { return 1; }
+		else { return -1; }
 	}
 
 	//DIAGONALS
 	if (board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] != " " && board[1][1] != " " && board[2][2] != " ")
 	{
-		return -1;
+		if (board[0][0] == "X") { return 1; }
+		else { return -1; }
 	}
 	if (board[2][0] == board[1][1] && board[2][0] == board[0][2] && board[2][0] != " " && board[1][1] != " " && board[0][2] != " ")
 	{
-		return -1;
+		if (board[2][0] == "X") { return 1; }
+		else { return -1; }
+	}
+}
+
+int* inputCoords()
+{
+	int pc1 = 0;
+	int pc2 = 0;
+	int pc[2] = { -1, -1 };
+
+	cout << "Row: ";
+	cin >> pc1;
+	while (pc1 < 0 || pc1 > 2)
+	{
+		cout << "The coord inserted is invalid." << endl << "Row: ";
+		cin >> pc1;
 	}
 
+	cout << "Column: ";
+	cin >> pc2;
+	while (pc2 < 0 || pc2 > 2)
+	{
+		cout << "The coord inserted is invalid." << endl << "Column: ";
+		cin >> pc2;
+	}
 
+	pc[0] = pc1;
+	pc[1] = pc2;
+
+	return pc;
 }
 
 int main()
 {
 	string board[3][3] = { {" "," "," "},{" "," "," "},{" "," "," "}};
 	
-	int playercoord1=0;
-	int playercoord2=0;
+	int* playercoord;
 	int winStatus;
 
-	cout << "Welcome to Tic Tac Toe" << endl;
-	cout << endl;
+	cout << "Welcome to Tic Tac Toe" << endl << endl;
 	printBoard(board);
 	cout << endl;
 
 	for (int playedMoves = 0; playedMoves < 9; playedMoves++)
 	{
+		cout << "Player " << playedMoves % 2 + 1 << " turn to play. Select your Board coordinates." << endl;
+
+		playercoord = inputCoords();
+
+		while (board[playercoord[0]][playercoord[1]] != " ")
+		{
+			cout << "Coordenadas já jogadas. Insira coordenadas válidas!" << endl;
+			playercoord = inputCoords();
+		}
+
 		if (playedMoves % 2 == 0)
 		{
-			cout << "Player 1 turn to play. Select your Board coordinates" << endl;
-			
-			cin >> playercoord1;
-			while (playercoord1 < 0 || playercoord1 > 2)
-			{
-				cout << "The coord inserted is invalid";
-				cin >> playercoord1;
-			}
-
-			cin >> playercoord2;
-			while (playercoord1 < 0 || playercoord1 > 2)
-			{
-				cout << "The coord inserted is invalid";
-				cin >> playercoord1;
-			}
-			
-			board[playercoord1][playercoord2] = "X";
-
-			printBoard(board);
-			winStatus = winConditions(board);
-			
-			if (winStatus == -1)
-			{
-				break;
-			}
-			else
-			{
-				continue;
-			}
+			board[playercoord[0]][playercoord[1]] = "X";
 		}
-
-		cout << "Player 2 turn to play. Select your Board coordinates" << endl;
-
-		cin >> playercoord1;
-		while (playercoord1 < 0 || playercoord1 > 2)
+		else
 		{
-			cout << "The coord inserted is invalid" << endl;
-			cin >> playercoord1;
+			board[playercoord[0]][playercoord[1]] = "O";
 		}
 
-		cin >> playercoord2;
-		while (playercoord1 < 0 || playercoord1 > 2)
-		{
-			cout << "The coord inserted is invalid" << endl;
-			cin >> playercoord1;
-		}
-
-		board[playercoord1][playercoord2] = "O";
-
+		cout << endl;
 		printBoard(board);
-		winStatus = winConditions(board);
+		cout << endl;
 
-		if (winStatus == -1)
+		if (winConditions(board) == 1)
 		{
+			cout << "Player 1 Wins!! ";
 			break;
 		}
+		else if (winConditions(board) == -1)
+		{
+			cout << "Player 2 Wins!! ";
+			break;
+		}
+
 	}
 
-	cout << "Game Over!";
+	cout << "Game Over!" << endl;
 }
