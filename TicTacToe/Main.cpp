@@ -5,14 +5,17 @@ using namespace std;
 
 /*
 
-Tic Tac Toe
+Tic Tac Toe - Features to Add
 
-1. I need an interface where to appear in the command line
-2. I need a way to save the information of the locations played in a data structure
-3. I need to insert the played locations into the data structure
-4. I need to be checking if any player has won
-5. I need to be able to check for a tie
-6. I need to be able to avoid a player playing in a location already played
+Checklist
+- UI complete - YES
+- Game logic implemented - YES
+- Input validations implemented - YES
+
+What I'm analysing of implementing:
+- Make players able to play again in the same session
+- Create a score for a multiple game session
+- Clearing the CLI between each play for just one board to appear at a time
 
 */ 
 
