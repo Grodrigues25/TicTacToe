@@ -1,5 +1,5 @@
-#include <iostream>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -13,9 +13,10 @@ Checklist
 - Input validations implemented - DONE
 - Make players able to play again in the same session - DONE
 - Create a score for a multiple game session - DONE
+- Clearing the CLI between each play for just one board to appear at a time - DONE
 
 What I'm analysing of implementing:
-- Clearing the CLI between each play for just one board to appear at a time
+
 
 */ 
 
@@ -149,7 +150,7 @@ int main()
 
 			while (board[playercoord[0]][playercoord[1]] != " ")
 			{
-				cout << "Coordenadas já jogadas. Insira coordenadas válidas!" << endl;
+				cout << "Location already played! Insert valid coordinates!" << endl;
 				playercoord = inputCoords();
 			}
 
@@ -161,6 +162,8 @@ int main()
 			{
 				board[playercoord[0]][playercoord[1]] = "O";
 			}
+
+			system("cls");
 
 			cout << endl;
 			printBoard(board);
@@ -185,7 +188,7 @@ int main()
 		cout << "Do you want to play again? Enter 1 for Yes or 0 for No" << endl;
 		cin >> gameSessionStatus;
 	}
-	
+
 
 	cout << "Game Over!" << endl;
 }
