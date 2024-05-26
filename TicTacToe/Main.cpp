@@ -100,42 +100,42 @@ int winConditions(string board[3][3])
 
 int* inputCoords()
 {
-	int pc1 = 0;
-	int pc2 = 0;
-	int pc[2] = { -1, -1 };
+	int playerCoordRow = 0;
+	int playerCoordColumn = 0;
+	int playerCoordArray[2] = { -1, -1 };
 
 	cout << "Row: ";
-	cin >> pc1;
-	while (pc1 < 0 || pc1 > 2)
+	cin >> playerCoordRow;
+	while (playerCoordRow < 0 || playerCoordRow > 2)
 	{
 		cout << "The coord inserted is invalid." << endl << "Row: ";
-		cin >> pc1;
+		cin >> playerCoordRow;
 	}
 
 	cout << "Column: ";
-	cin >> pc2;
-	while (pc2 < 0 || pc2 > 2)
+	cin >> playerCoordColumn;
+	while (playerCoordColumn < 0 || playerCoordColumn > 2)
 	{
 		cout << "The coord inserted is invalid." << endl << "Column: ";
-		cin >> pc2;
+		cin >> playerCoordColumn;
 	}
 
-	pc[0] = pc1;
-	pc[1] = pc2;
+	playerCoordArray[0] = playerCoordRow;
+	playerCoordArray[1] = playerCoordColumn;
 
-	return pc;
+	return playerCoordArray;
 }
 
 int main()
 {
 	int* playercoord;
 	int winStatus;
-	int gameSessionStatus = 1;
+	int gameSessionActive = 1;
 	int score[2] = { 0,0 };
 
 	cout << "Welcome to Tic Tac Toe" << endl << endl;
 
-	while (gameSessionStatus)
+	while (gameSessionActive)
 	{
 		string board[3][3] = { {" "," "," "},{" "," "," "},{" "," "," "} };
 		
@@ -165,7 +165,7 @@ int main()
 
 			system("cls");
 
-			cout << endl;
+			cout << endl << endl;
 			printBoard(board);
 			cout << endl;
 
@@ -186,7 +186,7 @@ int main()
 		cout << "Current Score:" << endl << "- Player 1: " << score[0] << endl << "- Player 2: " << score[1] << endl << endl;
 
 		cout << "Do you want to play again? Enter 1 for Yes or 0 for No" << endl;
-		cin >> gameSessionStatus;
+		cin >> gameSessionActive;
 	}
 
 
