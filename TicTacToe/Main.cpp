@@ -1,5 +1,5 @@
-#include <iostream>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -8,14 +8,15 @@ using namespace std;
 Tic Tac Toe - Features to Add
 
 Checklist
-- UI complete - YES
-- Game logic implemented - YES
-- Input validations implemented - YES
+- UI complete - DONE
+- Game logic implemented - DONE
+- Input validations implemented - DONE
+- Make players able to play again in the same session - DONE
+- Create a score for a multiple game session - DONE
+- Clearing the CLI between each play for just one board to appear at a time - DONE
 
 What I'm analysing of implementing:
-- Make players able to play again in the same session
-- Create a score for a multiple game session
-- Clearing the CLI between each play for just one board to appear at a time
+
 
 */ 
 
@@ -127,52 +128,67 @@ int* inputCoords()
 
 int main()
 {
-	string board[3][3] = { {" "," "," "},{" "," "," "},{" "," "," "}};
-	
 	int* playercoord;
 	int winStatus;
+	int gameSessionStatus = 1;
+	int score[2] = { 0,0 };
 
 	cout << "Welcome to Tic Tac Toe" << endl << endl;
-	printBoard(board);
-	cout << endl;
 
-	for (int playedMoves = 0; playedMoves < 9; playedMoves++)
+	while (gameSessionStatus)
 	{
-		cout << "Player " << playedMoves % 2 + 1 << " turn to play. Select your Board coordinates." << endl;
-
-		playercoord = inputCoords();
-
-		while (board[playercoord[0]][playercoord[1]] != " ")
-		{
-			cout << "Coordenadas já jogadas. Insira coordenadas válidas!" << endl;
-			playercoord = inputCoords();
-		}
-
-		if (playedMoves % 2 == 0)
-		{
-			board[playercoord[0]][playercoord[1]] = "X";
-		}
-		else
-		{
-			board[playercoord[0]][playercoord[1]] = "O";
-		}
-
-		cout << endl;
+		string board[3][3] = { {" "," "," "},{" "," "," "},{" "," "," "} };
+		
 		printBoard(board);
 		cout << endl;
 
-		if (winConditions(board) == 1)
+		for (int playedMoves = 0; playedMoves < 9; playedMoves++)
 		{
-			cout << "Player 1 Wins!! ";
-			break;
-		}
-		else if (winConditions(board) == -1)
-		{
-			cout << "Player 2 Wins!! ";
-			break;
+			cout << "Player " << playedMoves % 2 + 1 << " turn to play. Select your Board coordinates." << endl;
+
+			playercoord = inputCoords();
+
+			while (board[playercoord[0]][playercoord[1]] != " ")
+			{
+				cout << "Location already played! Insert valid coordinates!" << endl;
+				playercoord = inputCoords();
+			}
+
+			if (playedMoves % 2 == 0)
+			{
+				board[playercoord[0]][playercoord[1]] = "X";
+			}
+			else
+			{
+				board[playercoord[0]][playercoord[1]] = "O";
+			}
+
+			system("cls");
+
+			cout << endl;
+			printBoard(board);
+			cout << endl;
+
+			if (winConditions(board) == 1)
+			{
+				cout << "Player 1 Wins!! " << endl;
+				score[0]++;
+				break;
+			}
+			else if (winConditions(board) == -1)
+			{
+				cout << "Player 2 Wins!! " << endl;
+				score[1]++;
+				break;
+			}
 		}
 
+		cout << "Current Score:" << endl << "- Player 1: " << score[0] << endl << "- Player 2: " << score[1] << endl << endl;
+
+		cout << "Do you want to play again? Enter 1 for Yes or 0 for No" << endl;
+		cin >> gameSessionStatus;
 	}
+
 
 	cout << "Game Over!" << endl;
 }
